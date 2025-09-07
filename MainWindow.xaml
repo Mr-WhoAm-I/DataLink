@@ -1,0 +1,180 @@
+﻿<Controls:MetroWindow x:Class="DataLink.MainWindow"
+                      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                      xmlns:Controls="http://metro.mahapps.com/winfx/xaml/controls"
+                      Title="DataLink" Height="800" Width="1200"
+                      WindowStartupLocation="CenterScreen"
+                      Background="#0C1B34"
+                      Foreground="#C19F38">
+
+    <Controls:MetroWindow.Resources>
+        <!-- Btn style -->
+        <Style TargetType="Button" x:Key="CustomButtonStyle">
+            <Setter Property="Background" Value="#0C1B34"/>
+            <Setter Property="Foreground" Value="#C19F38"/>
+            <Setter Property="BorderBrush" Value="#C19F38"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="FontWeight" Value="Bold"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Background" Value="#242d42"/>
+                </Trigger>
+                <Trigger Property="IsEnabled" Value="False">
+                    <Setter Property="Foreground" Value="#888888"/>
+                    <Setter Property="Background" Value="#0C1B34"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+
+        <!-- ProgressBar style -->
+        <ControlTemplate x:Key="OvalProgressBarTemplate" TargetType="ProgressBar">
+            <Border Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="1" CornerRadius="6" Height="12">
+                <Grid x:Name="PART_Track" ClipToBounds="true">
+                    <Rectangle x:Name="PART_Indicator" Fill="{TemplateBinding Foreground}" RadiusX="6" RadiusY="6"/>
+                </Grid>
+            </Border>
+        </ControlTemplate>
+    </Controls:MetroWindow.Resources>
+
+    <Grid Margin="20" Background="#0C1B34">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <!-- CSV + Lang -->
+            <RowDefinition Height="Auto"/>
+            <!-- Btn + Filter -->
+            <RowDefinition Height="*"/>
+            <!-- DataGrid -->
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <!-- CSV + Lang -->
+        <StackPanel Orientation="Horizontal" Grid.Row="0" Margin="0,0,0,20" HorizontalAlignment="Left" VerticalAlignment="Center">
+            <Button x:Name="BtnLoadCsv" Content="{DynamicResource BtnLoadCsv}" Click="BtnLoadCsv_Click"
+                    Width="140" Height="40" Style="{StaticResource CustomButtonStyle}" Margin="0,0,10,0"/>
+
+            <ComboBox x:Name="LangSelector" SelectionChanged="LangSelector_Changed"
+                      Width="150" Height="35"
+                      SelectedIndex="0"
+                      Background="#0C1B34"
+                      Foreground="#C19F38"
+                      BorderBrush="#C19F38"
+                      HorizontalContentAlignment="Center"
+                      VerticalContentAlignment="Center"
+                      FontFamily="Segoe UI" FontSize="14">
+                <ComboBoxItem Tag="en" Content="English" Background="#0C1B34" Foreground="#C19F38"/>
+                <ComboBoxItem Tag="ru" Content="Русский" Background="#0C1B34" Foreground="#C19F38"/>
+            </ComboBox>
+        </StackPanel>
+
+        <!-- Btn + Filter -->
+        <WrapPanel Grid.Row="1" Margin="0,0,0,20">
+            <!-- Date -->
+            <Border Background="#0C1B34" CornerRadius="5" Padding="10" Margin="0,0,10,10">
+                <StackPanel>
+                    <TextBlock Text="{DynamicResource Label_Date}" FontWeight="Bold" Foreground="#C19F38"/>
+                    <StackPanel Orientation="Horizontal" Margin="0,5,0,0">
+                        <DatePicker x:Name="FilterStartDatePicker" Width="80" Margin="0,0,5,0"/>
+                        <TextBlock Text="-" VerticalAlignment="Center" Margin="0,0,5,0" Foreground="#C19F38"/>
+                        <DatePicker x:Name="FilterEndDatePicker" Width="80"/>
+                    </StackPanel>
+                </StackPanel>
+            </Border>
+
+            <!-- FirstName -->
+            <Border Background="#0C1B34" CornerRadius="5" Padding="10" Margin="0,0,10,10">
+                <StackPanel>
+                    <TextBlock Text="{DynamicResource Label_FirstName}" FontWeight="Bold" Foreground="#C19F38"/>
+                    <TextBox x:Name="FilterFirstName" Width="160" Background="#0C1B34" Foreground="#C19F38"/>
+                </StackPanel>
+            </Border>
+
+            <!-- LastName -->
+            <Border Background="#0C1B34" CornerRadius="5" Padding="10" Margin="0,0,10,10">
+                <StackPanel>
+                    <TextBlock Text="{DynamicResource Label_LastName}" FontWeight="Bold" Foreground="#C19F38"/>
+                    <TextBox x:Name="FilterLastName" Width="160" Background="#0C1B34" Foreground="#C19F38"/>
+                </StackPanel>
+            </Border>
+
+            <!-- SurName -->
+            <Border Background="#0C1B34" CornerRadius="5" Padding="10" Margin="0,0,10,10">
+                <StackPanel>
+                    <TextBlock Text="{DynamicResource Label_SurName}" FontWeight="Bold" Foreground="#C19F38"/>
+                    <TextBox x:Name="FilterSurName" Width="160" Background="#0C1B34" Foreground="#C19F38"/>
+                </StackPanel>
+            </Border>
+
+            <!-- City -->
+            <Border Background="#0C1B34" CornerRadius="5" Padding="10" Margin="0,0,10,10">
+                <StackPanel>
+                    <TextBlock Text="{DynamicResource Label_City}" FontWeight="Bold" Foreground="#C19F38"/>
+                    <TextBox x:Name="FilterCity" Width="160" Background="#0C1B34" Foreground="#C19F38"/>
+                </StackPanel>
+            </Border>
+
+            <!-- Country -->
+            <Border Background="#0C1B34" CornerRadius="5" Padding="10" Margin="0,0,10,10">
+                <StackPanel>
+                    <TextBlock Text="{DynamicResource Label_Country}" FontWeight="Bold" Foreground="#C19F38"/>
+                    <TextBox x:Name="FilterCountry" Width="160" Background="#0C1B34" Foreground="#C19F38"/>
+                </StackPanel>
+            </Border>
+
+            <!-- Btn ApplyFilters + ExportExcel + ExportXml -->
+            <StackPanel Orientation="Horizontal" Margin="0,10,0,0" VerticalAlignment="Center">
+                <Button x:Name="BtnApplyFilters" Content="{DynamicResource BtnApplyFilters}" Click="BtnApplyFilters_Click" Width="140" Height="40" Style="{StaticResource CustomButtonStyle}" Margin="0,0,10,0"/>
+                <Button x:Name="BtnExportExcel" Content="{DynamicResource BtnExportExcel}" Click="BtnExportExcel_Click" Width="120" Height="40" Style="{StaticResource CustomButtonStyle}" Margin="0,0,10,0"/>
+                <Button x:Name="BtnExportXml" Content="{DynamicResource BtnExportXml}" Click="BtnExportXml_Click" Width="120" Height="40" Style="{StaticResource CustomButtonStyle}" Margin="0,0,10,0"/>
+
+                <!-- ProgressBar -->
+                <ProgressBar x:Name="ProgressBarMain"
+                             Width="250" Height="12"
+                             Minimum="0" Maximum="100"
+                             Value="0"
+                             Margin="10,0,0,0"
+                             Foreground="#C19F38"
+                             Background="#0C1B34"
+                             BorderBrush="#C19F38"
+                             BorderThickness="1"
+                             Template="{StaticResource OvalProgressBarTemplate}"/>
+                <TextBlock x:Name="ProgressText" Margin="10,0,0,0" VerticalAlignment="Center" Foreground="#C19F38"/>
+                <!-- BtnCancel -->
+                <Button x:Name="BtnCancel" Content="{DynamicResource BtnCancel}" Click="BtnCancel_Click" Width="80" Height="30" Margin="10,0,0,0" Visibility="Collapsed" Style="{StaticResource CustomButtonStyle}"/>
+            </StackPanel>
+        </WrapPanel>
+
+        <!-- DataGrid -->
+        <DataGrid x:Name="RecordsDataGrid"
+                  Grid.Row="2"
+                  AutoGenerateColumns="True"
+                  Height="350"
+                  AlternatingRowBackground="#0C1B34"
+                  RowBackground="#0C1B34"
+                  GridLinesVisibility="Horizontal"
+                  Margin="0,0,0,10"
+                  Foreground="#C19F38"
+                  SelectionMode="Single"
+                  CanUserAddRows="False"
+                  CanUserDeleteRows="False"
+                  HeadersVisibility="Column">
+            <DataGrid.Resources>
+                <Style TargetType="DataGridColumnHeader">
+                    <Setter Property="Foreground" Value="#C19F38"/>
+                    <Setter Property="Background" Value="#0C1B34"/>
+                    <Setter Property="FontWeight" Value="Bold"/>
+                </Style>
+                <Style TargetType="DataGridCell">
+                    <Setter Property="Foreground" Value="#C19F38"/>
+                    <Setter Property="Background" Value="#0C1B34"/>
+                    <Setter Property="BorderBrush" Value="#0C1B34"/>
+                </Style>
+            </DataGrid.Resources>
+        </DataGrid>
+        <StackPanel x:Name="PageNavPanel" Grid.Row="3" Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,50,0,0" Visibility="Collapsed">
+            <Button x:Name="BtnPrevPage" Content="{DynamicResource BtnPrev}" Width="100" Height="35" Click="BtnPrevPage_Click" IsEnabled="False" Background="#0C1B34" Foreground="#C19F38" Margin="0,0,10,0" BorderBrush="#C19F38"/>
+            <Label x:Name="PageLabel" Content="" VerticalAlignment="Center" Foreground="#C19F38" Margin="0,0,10,0"/>
+            <Button x:Name="BtnNextPage" Content="{DynamicResource BtnNext}" Width="100" Height="35" Click="BtnNextPage_Click" IsEnabled="False" Background="#0C1B34" Foreground="#C19F38" BorderBrush="#C19F38"/>
+        </StackPanel>
+    </Grid>
+</Controls:MetroWindow>

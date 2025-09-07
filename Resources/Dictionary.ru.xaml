@@ -1,0 +1,21 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:sys="clr-namespace:System;assembly=mscorlib">
+    <!-- Btn -->
+    <sys:String x:Key="BtnLoadCsv">Загрузить CSV</sys:String>
+    <sys:String x:Key="BtnApplyFilters">Применить изменения</sys:String>
+    <sys:String x:Key="BtnExportExcel">Экспорт в Excel</sys:String>
+    <sys:String x:Key="BtnExportXml">Экспорт в XML</sys:String>
+    <sys:String x:Key="BtnPrev">⏮ Назад</sys:String>
+    <sys:String x:Key="BtnNext">Вперёд ⏭</sys:String>
+    <sys:String x:Key="BtnCancel">Отмена</sys:String>
+
+    <!-- Labels -->
+    <sys:String x:Key="Label_Date">Дата:</sys:String>
+    <sys:String x:Key="Label_FirstName">Имя:</sys:String>
+    <sys:String x:Key="Label_LastName">Фамилия:</sys:String>
+    <sys:String x:Key="Label_SurName">Отчество:</sys:String>
+    <sys:String x:Key="Label_City">Город:</sys:String>
+    <sys:String x:Key="Label_Country">Страна:</sys:String>
+    <sys:String x:Key="Label_PageInfo">Страница {0} из {1}</sys:String>
+</ResourceDictionary>
